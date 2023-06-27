@@ -1,0 +1,18 @@
+body{
+    
+    
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#btn{
+    width: 20rem;
+    background-color: rgb(65, 7, 27);
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}

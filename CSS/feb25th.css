@@ -1,0 +1,25 @@
+body{
+    height: 100vh;
+    justify-content: center;
+    background-color: bisque;
+    display: flex;
+    align-items: center;
+    
+}
+button{
+    border-radius: 25px;
+    border-style:double;
+    border-color: greenyellow;
+    /* box-shadow: 0px; */    
+}
+button:hover{
+    cursor: pointer;
+    
+}
+#btn{
+    background-color: black;
+    color: white;
+    font-size:20px;
+    padding: 25px;
+    font-weight: 700;
+}
