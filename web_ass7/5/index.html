@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Catalog</title>
+  <style>
+    /* Add your CSS styles here */
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  
+    .product {
+      width: 23%;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+    }
+  
+    .product img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+  
+    .product h3 {
+      font-size: 16px;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+  
+    .product p {
+      font-size: 14px;
+      margin: 0;
+    }
+  
+    .cart-container {
+      margin-top: 30px;
+    }
+  
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-right: 20px;
+    }
+  
+    .cart-item-details {
+      flex-grow: 1;
+    }
+  
+    .cart-item h3 {
+      font-size: 16px;
+      margin: 0;
+    }
+  
+    .cart-item p {
+      font-size: 14px;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Product Catalog</h1>
+    <div class="product-container" id="productContainer"></div>
+  
+    <div class="cart-container" id="cartContainer"></div>
+  </div>
+
+  <script>
+    var productContainer = document.getElementById("productContainer");
+    var cartContainer = document.getElementById("cartContainer");
+    var cartItems = [];
+
+    fetch("https://fakestoreapi.com/products")
+      .then(response => response.json())
+      .then(products => {
+        products.forEach(product => {
+          var productElement = createProductElement(product);
+          productContainer.appendChild(productElement);
+        });
+
+        var addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+        addToCartButtons.forEach((button, index) => {
+          button.addEventListener("click", function() {
+            addToCart(products[index]);
+          });
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching products:", error);
+        var errorMessage = document.createElement("p");
+        errorMessage.textContent = "Failed to fetch products";
+        productContainer.appendChild(errorMessage);
+      });
+
+    function createProductElement(product) {
+      var productElement = document.createElement("div");
+      productElement.classList.add("product");
+
+      var imageElement = document.createElement("img");
+      imageElement.src = product.image;
+      imageElement.alt = product.title;
+      productElement.appendChild(imageElement);
+
+      var titleElement = document.createElement("h3");
+      titleElement.textContent = product.title;
+      productElement.appendChild(titleElement);
+
+      var priceElement = document.createElement("p");
+      priceElement.textContent = "Price: $" + product.price;
+      productElement.appendChild(priceElement);
+
+      var addToCartButton = document.createElement("button");
+      addToCartButton.textContent = "Add to Cart";
+      addToCartButton.classList.add("add-to-cart-btn");
+      productElement.appendChild(addToCartButton);
+
+      return productElement;
+    }
+
+    function addToCart(product) {
+      var existingItem = cartItems.find(item => item.id === product.id);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cartItems.push({ ...product, quantity: 1 });
+      }
+
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      cartContainer.innerHTML = "";
+
+      cartItems.forEach(item => {
+        var cartItemElement = createCartItemElement(item);
+        cartContainer.appendChild(cartItemElement);
+      });
+    }
+
+    function createCartItemElement(item) {
+      var cartItemElement = document.createElement("div");
+      cartItemElement.classList.add("cart-item");
+
+      var imageElement = document.createElement("img");
+      imageElement.src = item.image;
+      imageElement.alt = item.title;
+      cartItemElement.appendChild(imageElement);
+
+      var detailsElement = document.createElement("div");
+      detailsElement.classList.add("cart-item-details");
+
+      var titleElement = document.createElement("h3");
+      titleElement.textContent = item.title;
+      detailsElement.appendChild(titleElement);
+
+      var priceElement = document.createElement("p");
+      priceElement.textContent = "Price: $" + item.price;
+      detailsElement.appendChild(priceElement);
+
+      var quantityElement = document.createElement("p");
+      quantityElement.textContent = "Quantity: " + item.quantity;
+      detailsElement.appendChild(quantityElement);
+
+      cartItemElement.appendChild(detailsElement);
+
+      return cartItemElement;
+    }
+  </script>
+</body>
+</html>

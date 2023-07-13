@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>current time display</title>
+    <link rel="stylesheet" href="./style.css">
+    <!-- <script src="./script.js"></script> -->
+
+</head>
+<body>
+    <div class="clock">
+        <div class="time">
+          <span id="hours">00</span>
+          <span>:</span>
+          <span id="minutes">00</span>
+          <span>:</span>
+          <span id="seconds">00</span>
+        </div>
+        <div class="date">
+          <span id="day"></span>
+          <span>-</span>
+          <span id="month">-</span>
+          <span>-</span>
+          <span id="year"></span>
+        </div>
+      </div>
+      <!-- javascript logic for dynamic time display -->
+
+      <script>
+      function updateTime() {
+        var currentTime = new Date();
+      
+        var hours = currentTime.getHours();
+        var minutes = currentTime.getMinutes();
+        var seconds = currentTime.getSeconds();
+      
+        // Format single-digit hours, minutes, and seconds with leading zeros
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+      
+        document.getElementById("hours").textContent = hours;
+        document.getElementById("minutes").textContent = minutes;
+        document.getElementById("seconds").textContent = seconds;
+      
+        var day = currentTime.getDate();
+        var month = currentTime.getMonth() + 1; // Add 1 to the month since it is zero-based
+        var year = currentTime.getFullYear();
+      
+        document.getElementById("day").textContent = day;
+        document.getElementById("month").textContent = month;
+        document.getElementById("year").textContent = year;
+      }
+      
+      // Call updateTime() initially to display the current time
+      updateTime();
+      
+      // Update the time every second
+      setInterval(updateTime, 1000);
+      </script>
+      
+
+</body>
+</html>

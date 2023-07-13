@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Details</title>
+  <style>
+    /* Add your CSS styles here */
+    .product-details {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: left;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  
+    .product-details h1 {
+      font-size: 24px;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+  
+    .product-details p {
+      margin: 0;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="product-details" id="productDetails"></div>
+
+  <script>
+    var productDetails = document.getElementById("productDetails");
+    var currentProduct = JSON.parse(sessionStorage.getItem("currentProduct"));
+
+    if (currentProduct) {
+      var titleElement = document.createElement("h1");
+      titleElement.textContent = currentProduct.title;
+      productDetails.appendChild(titleElement);
+
+      var imageElement = document.createElement("img");
+      imageElement.src = currentProduct.image;
+      imageElement.alt = currentProduct.title;
+      productDetails.appendChild(imageElement);
+
+      var priceElement = document.createElement("p");
+      priceElement.textContent = "Price: $" + currentProduct.price;
+      productDetails.appendChild(priceElement);
+    } else {
+      var errorMessage = document.createElement("p");
+      errorMessage.textContent = "Failed to load product details";
+      productDetails.appendChild(errorMessage);
+    }
+
+    // Clear the current product from SessionStorage
+    sessionStorage.removeItem("currentProduct");
+  </script>
+</body>
+</html>

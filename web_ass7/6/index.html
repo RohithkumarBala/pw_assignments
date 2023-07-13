@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Catalog</title>
+  <style>
+    /* Add your CSS styles here */
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  
+    .product {
+      width: 23%;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+    }
+  
+    .product img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+  
+    .product h3 {
+      font-size: 16px;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+  
+    .product p {
+      font-size: 14px;
+      margin: 0;
+    }
+  
+    .product-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+  
+    .product-details {
+      max-width: 400px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: left;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  
+    .product-details h1 {
+      font-size: 24px;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+  
+    .product-details p {
+      margin: 0;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Product Catalog</h1>
+    <div class="product-container" id="productContainer"></div>
+  </div>
+
+  <div class="product-page" id="productPage" style="display: none;">
+    <div class="product-details" id="productDetails"></div>
+  </div>
+
+  <script>
+    var productContainer = document.getElementById("productContainer");
+    var productPage = document.getElementById("productPage");
+    var productDetails = document.getElementById("productDetails");
+
+    fetch("https://fakestoreapi.com/products")
+      .then(response => response.json())
+      .then(products => {
+        products.forEach(product => {
+          var productElement = createProductElement(product);
+          productContainer.appendChild(productElement);
+        });
+
+        var productElements = document.querySelectorAll(".product");
+        productElements.forEach((element, index) => {
+          element.addEventListener("click", function() {
+            showProductPage(products[index]);
+          });
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching products:", error);
+        var errorMessage = document.createElement("p");
+        errorMessage.textContent = "Failed to fetch products";
+        productContainer.appendChild(errorMessage);
+      });
+
+    function createProductElement(product) {
+      var productElement = document.createElement("div");
+      productElement.classList.add("product");
+
+      var imageElement = document.createElement("img");
+      imageElement.src = product.image;
+      imageElement.alt = product.title;
+      productElement.appendChild(imageElement);
+
+      var titleElement = document.createElement("h3");
+      titleElement.textContent = product.title;
+      productElement.appendChild(titleElement);
+
+      var priceElement = document.createElement("p");
+      priceElement.textContent = "Price: $" + product.price;
+      productElement.appendChild(priceElement);
+
+      return productElement;
+    }
+
+    function showProductPage(product) {
+      sessionStorage.setItem("currentProduct", JSON.stringify(product));
+      window.location.href = "product.html";
+    }
+  </script>
+</body>
+</html>
