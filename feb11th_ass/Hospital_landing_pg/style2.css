@@ -1,0 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;font-family: "Poppins", "Arial";
+}
+body{
+    background-color: #F0F4F5;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    height: 15vh;
+    padding: 0 5%;
+    align-items: center;
+}
+
+ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+li a {
+    cursor: pointer;
+    padding: 2rem;
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+}
+
+/* Main section */
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "IBM Plex Sans", sans-serif;
+}
+.inner-container h1{
+    color: #20BC7E;
+}
+.inner-container {
+    width: 1200px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    row-gap: 2rem;
+    flex-direction: column;
+}
+.inner-container p{
+    width: 600px;
+    text-align: 
+    center;
+    padding-bottom: 10px;
+    font-weight: 500;
+    font-size: 17px;
+}
+.boxes{
+  display: flex;
+  width:800px;
+ column-gap: 3rem;
+ justify-content: center;
+ align-items: center;
+}
+.box1,.box2,.box3{
+    display: flex;
+    flex-direction: column;width:200px;
+    cursor: pointer;
+    height: 100px;
+    row-gap: 10px;
+    box-shadow:0 0 10px black;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 12px;
+    
+    align-items: center;
+}
+.box-para{
+    color: black;
+    font-weight: 600;
+    font-size: 20px;
+}
+span{
+    font-size: 25px;
+    font-weight: 700;
+    color:#20BC7E;
+}
